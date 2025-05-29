@@ -1,0 +1,44 @@
+// Screen size
+Window.SetBackgroundTopColor(0.0, 0.0, 0.0);
+Window.SetBackgroundBottomColor(0.0, 0.0, 0.0);
+
+// Logo image
+logo.image = Image("logo.png");
+logo.sprite = Sprite(logo.image);
+logo.opacity_angle = 0;
+
+// Set the logo position at the center of the screen
+logo.sprite.SetX(Window.GetWidth() / 2 - logo.image.GetWidth() / 2);
+logo.sprite.SetY(Window.GetHeight() / 2 - logo.image.GetHeight() / 2);
+
+// Progress bar properties
+progress_box.image = Image("progress_box.png");
+progress_box.sprite = Sprite(progress_box.image);
+progress_box.sprite.SetX(Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2);
+progress_box.sprite.SetY(Window.GetHeight() - 50);
+
+progress_bar.original_image = Image("progress_bar.png");
+progress_bar.sprite = Sprite();
+progress_bar.sprite.SetX(Window.GetWidth() / 2 - progress_box.image.GetWidth() / 2);
+progress_bar.sprite.SetY(Window.GetHeight() - 50);
+
+// Animation function
+fun refresh_callback() {
+    logo.opacity_angle += 1;
+    if (logo.opacity_angle >= 360) logo.opacity_angle = 0;
+    
+    logo.sprite.SetOpacity(Math.Abs(Math.Sin(logo.opacity_angle * Math.Pi / 180)));
+}
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+// Progress bar update function
+fun progress_callback(duration, progress) {
+    progress_bar.image = progress_bar.original_image.Scale(
+        progress_bar.original_image.GetWidth() * progress,
+        progress_bar.original_image.GetHeight()
+    );
+    progress_bar.sprite.SetImage(progress_bar.image);
+}
+
+Plymouth.SetBootProgressFunction(progress_callback); 

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=MTOS Boot Theme
+Description=A modern and clean boot animation for MTOS
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/mtos-boot
+ScriptFile=/usr/share/plymouth/themes/mtos-boot/mtos-boot.script 
